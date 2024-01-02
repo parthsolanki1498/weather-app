@@ -10,13 +10,15 @@ import snow_icon from '../Assets/snow.png'
 import wind_icon from '../Assets/wind.png'
 import humidity_icon from '../Assets/humidity.png'
 
-import videoBg from '../Assets/in_front_of.mov'
+import videoBgSnow from '../Assets/in_front_of.mov'
+import videoBgSunny from '../Assets/06_1596083776.mp4'
 
 const WeatherApp = () => {
 
     let api_key = "b4e2bfdb5f6ef4f79e998e42f1bb1ec8";
 
     const [wicon, setwicon] = useState(cloud_icon);
+    const [bgVideo, setbgVideo] = useState(null);
 
     const search = async () => {
         const element = document.getElementsByClassName("cityInput");
@@ -42,6 +44,7 @@ const WeatherApp = () => {
 
         if(data.weather[0].icon === '01d' || data.weather[0].icon === '01n') {
             setwicon(clear_icon);
+            setbgVideo(videoBgSunny);
         } else if (data.weather[0].icon === '02d' || data.weather[0].icon === '02n') {
             setwicon(cloud_icon);
         } else if (data.weather[0].icon === '03d' || data.weather[0].icon === '03n') {
@@ -54,6 +57,7 @@ const WeatherApp = () => {
             setwicon(rain_icon);
         } else if (data.weather[0].icon === '13d' || data.weather[0].icon === '13n') {
             setwicon(snow_icon);
+            setbgVideo(videoBgSnow);
         } else if (data.weather[0].icon === '50d' || data.weather[0].icon === '50n') {
              setwicon()
         } else {
@@ -64,7 +68,7 @@ const WeatherApp = () => {
 
   return (  
     <div className='main'>
-    <video src={videoBg} autoPlay loop muted/>
+    <video src={bgVideo} autoPlay loop muted/>
     <div className='container'>
         <div className='top-bar'>
             <input type='text' className='cityInput' placeholder='Search' />
